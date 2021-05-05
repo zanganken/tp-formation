@@ -110,20 +110,48 @@ public class PlateauDeReversi {
 	 * @param robotJ1 : boolean (Si vrai, le joueur 1 sera un robot)
 	 * @param robotJ2 : boolean (Si vrai, le joueur 2 sera un robot)
 	 */
-	public void jouer(boolean robotJ1, boolean robotJ2) {
+	public void jouer() {
 		/*
 		 * Les pions noirs commencent toujours au Reversi
 		 */
-		Pion joueurActuel = Pion.NOIR;
-		ArrayList<Coordonnees> coupsPossibles;
-		ArrayList<Coordonnees> maxList = new ArrayList<Coordonnees>();
-		
-		int x = 0;
-		int y = 0;
-		boolean reboucle;
-		int nePeutPasJouer = 0;
-		
 		Scanner s = new Scanner(System.in);
+		
+		Pion joueurActuel = Pion.NOIR;
+		ArrayList<Coordonnees> coupsPossibles, maxList = new ArrayList<Coordonnees>();
+		
+		boolean robotJ1 = false, robotJ2 = false, continuerBoucle;
+		int x = 0, y = 0, saisie = 0, nePeutPasJouer = 0;
+		
+		/*
+		 * Initialisation de la partie
+		 */
+		do {
+			System.out.printf("Choisir le mode de jeu (1, 2 ou 3) :%n1. Joueur vs Joueur%n2. Joueur vs Ordi%n3. Ordi vs Ordi%n");
+			
+			try {
+				System.out.print("Saisie : ");
+				saisie = s.nextInt();
+				continuerBoucle = saisie < 1 || saisie > 3;
+			} catch(InputMismatchException e) {
+				continuerBoucle = true;
+				
+				s = new Scanner(System.in);
+			}
+			
+			if(continuerBoucle) {
+				System.out.print("Saisie incorrecte. ");
+			}
+		} while(continuerBoucle);
+		
+		switch(saisie) {
+		case 3:
+			robotJ1 = true;
+		case 2:
+			robotJ2 = true;
+			break;
+		}
+		
+		this.afficher();
 		
 		do {
 			System.out.println("Au tour de "+ joueurActuel);
@@ -176,39 +204,39 @@ public class PlateauDeReversi {
 								System.out.print("Quelle colonne ? ");
 								x = s.nextInt() - 1;
 								
-								reboucle = x < 0 || x >= grille[0].length;
+								continuerBoucle = x < 0 || x >= grille[0].length;
 							} catch(InputMismatchException e) {
-								reboucle = true;
+								continuerBoucle = true;
 								s = new Scanner(System.in);
 							}
 							
-							if(reboucle) {
+							if(continuerBoucle) {
 								System.out.print("Cette colonne n'existe pas... ");
 							}
-						} while(reboucle);
+						} while(continuerBoucle);
 						
 						do {
 							try {
 								System.out.print("Quelle ligne ? ");
 								y = s.nextInt() - 1;
 								
-								reboucle = y < 0 || y >= grille.length;
+								continuerBoucle = y < 0 || y >= grille.length;
 							} catch(InputMismatchException e) {
-								reboucle = true;
+								continuerBoucle = true;
 								s = new Scanner(System.in);
 							}
 							
-							if(reboucle) {
+							if(continuerBoucle) {
 								System.out.print("Cette ligne n'existe pas... ");
 							}
-						} while(reboucle);
+						} while(continuerBoucle);
 						
-						reboucle = !poser(joueurActuel, x, y);
+						continuerBoucle = !poser(joueurActuel, x, y);
 						
-						if(reboucle) {
+						if(continuerBoucle) {
 							System.out.printf("%s ne peut pas jouer en (%d, %d). Choisir à nouveau :%n", joueurActuel, x+1, y+1);
 						}
-					} while(reboucle);
+					} while(continuerBoucle);
 				}
 				
 				nePeutPasJouer = 0;
@@ -245,7 +273,7 @@ public class PlateauDeReversi {
 	public String toString() {
 		StringBuilder str = new StringBuilder();
 
-		str.append(String.format("%d %s%n",
+		str.append(String.format("%n%d %s%n",
 				Pion.NOIR.getNombre(),
 				Pion.NOIR.getSymbole()));
 		

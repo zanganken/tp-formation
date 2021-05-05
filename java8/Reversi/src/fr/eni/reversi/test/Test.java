@@ -6,7 +6,6 @@ public class Test {
 	public static void main(String[] args) {
 		PlateauDeReversi jeu = new PlateauDeReversi();
 		
-		jeu.afficher();		
-		jeu.jouer(true, false);
+		jeu.jouer();
 	}
 }
