@@ -3,8 +3,8 @@ package fr.eni.reversi.bo;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+
+import fr.eni.reversi.utils.Outils;
 
 /**
  * Permet de créer une instance de plateau de jeu de Reversi
@@ -114,36 +114,23 @@ public class PlateauDeReversi {
 		/*
 		 * Les pions noirs commencent toujours au Reversi
 		 */
-		Scanner s = new Scanner(System.in);
-		
 		Pion joueurActuel = Pion.NOIR;
 		ArrayList<Coordonnees> coupsPossibles, maxList = new ArrayList<Coordonnees>();
 		
 		boolean robotJ1 = false, robotJ2 = false, continuerBoucle;
-		int x = 0, y = 0, saisie = 0, nePeutPasJouer = 0;
+		int x, y, modeDeJeu, nePeutPasJouer = 0;
 		
 		/*
 		 * Initialisation de la partie
 		 */
-		do {
-			System.out.printf("Choisir le mode de jeu (1, 2 ou 3) :%n1. Joueur vs Joueur%n2. Joueur vs Ordi%n3. Ordi vs Ordi%n");
-			
-			try {
-				System.out.print("Saisie : ");
-				saisie = s.nextInt();
-				continuerBoucle = saisie < 1 || saisie > 3;
-			} catch(InputMismatchException e) {
-				continuerBoucle = true;
-				
-				s = new Scanner(System.in);
-			}
-			
-			if(continuerBoucle) {
-				System.out.print("Saisie incorrecte. ");
-			}
-		} while(continuerBoucle);
+		modeDeJeu = Outils.saisie(String.format("Choisir le mode de jeu (1, 2 ou 3) :%n%s%n%s%n%s%n%s",
+				"1. Joueur vs Joueur",
+				"2. Joueur vs Ordi",
+				"3. Ordi vs Ordi",
+				"Choix ?"),
+				1, 3);
 		
-		switch(saisie) {
+		switch(modeDeJeu) {
 		case 3:
 			robotJ1 = true;
 		case 2:
@@ -199,37 +186,8 @@ public class PlateauDeReversi {
 					maxList = new ArrayList<Coordonnees>();
 				} else {
 					do {
-						do {
-							try {
-								System.out.print("Quelle colonne ? ");
-								x = s.nextInt() - 1;
-								
-								continuerBoucle = x < 0 || x >= grille[0].length;
-							} catch(InputMismatchException e) {
-								continuerBoucle = true;
-								s = new Scanner(System.in);
-							}
-							
-							if(continuerBoucle) {
-								System.out.print("Cette colonne n'existe pas... ");
-							}
-						} while(continuerBoucle);
-						
-						do {
-							try {
-								System.out.print("Quelle ligne ? ");
-								y = s.nextInt() - 1;
-								
-								continuerBoucle = y < 0 || y >= grille.length;
-							} catch(InputMismatchException e) {
-								continuerBoucle = true;
-								s = new Scanner(System.in);
-							}
-							
-							if(continuerBoucle) {
-								System.out.print("Cette ligne n'existe pas... ");
-							}
-						} while(continuerBoucle);
+						x = Outils.saisie("Quelle colonne ?", 1, grille[0].length, "Cette colonne n'existe pas...") - 1;
+						y = Outils.saisie("Quelle ligne ?", 1, grille.length, "Cette ligne n'existe pas...") - 1;
 						
 						continuerBoucle = !poser(joueurActuel, x, y);
 						
@@ -265,8 +223,6 @@ public class PlateauDeReversi {
 		} else {
 			System.out.printf("%nEgalité totale !");
 		}
-		
-		s.close();
 	}
 	
 	@Override
