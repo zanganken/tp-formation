@@ -1,5 +1,6 @@
 package fr.eni.reversi.bo;
 
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -43,7 +44,7 @@ public class PlateauDeReversi {
 	 * @return Le nombre de pions qui changeraient de couleur si le joueur choisissait cette case
 	 */
 	public int tester(Pion p, int x, int y, boolean poser) {
-		ArrayList<Coordonnees> total = new ArrayList<Coordonnees>();
+		List<Coordonnees> total = new ArrayList<Coordonnees>();
 		
 		if(grille[y][x] == Pion.LIBRE) {
 			checkUp(p, x, y).stream().forEachOrdered(total::add);
@@ -79,8 +80,8 @@ public class PlateauDeReversi {
 	 * @param p : Pion
 	 * @return La liste des coordonnées de placements possibles ainsi que le nombre de pions gagnés par placement
 	 */
-	public ArrayList<Coordonnees> peutJouer(Pion p) {
-		ArrayList<Coordonnees> cList = new ArrayList<Coordonnees>();
+	public List<Coordonnees> peutJouer(Pion p) {
+		List<Coordonnees> cList = new ArrayList<Coordonnees>();
 		int pionsGagnes;
 		
 		for(int y = 0; y < grille.length; y++) {
@@ -115,7 +116,7 @@ public class PlateauDeReversi {
 		 * Les pions noirs commencent toujours au Reversi
 		 */
 		Pion joueurActuel = Pion.NOIR;
-		ArrayList<Coordonnees> coupsPossibles, maxList = new ArrayList<Coordonnees>();
+		List<Coordonnees> coupsPossibles, maxList = new ArrayList<Coordonnees>();
 		
 		boolean robotJ1 = false, robotJ2 = false, continuerBoucle;
 		int x, y, modeDeJeu, nePeutPasJouer = 0;
@@ -264,8 +265,8 @@ public class PlateauDeReversi {
 	 * @param y : int (ordonnée case de référence)
 	 * @return La liste des coordonnées des pions gagnés
 	 */
-	private ArrayList<Coordonnees> checkUp(Pion p, int x, int y) {
-		ArrayList<Coordonnees> test = new ArrayList<Coordonnees>();
+	private List<Coordonnees> checkUp(Pion p, int x, int y) {
+		List<Coordonnees> test = new ArrayList<Coordonnees>();
 		Pion pion;
 		int coordY;
 		
@@ -291,8 +292,8 @@ public class PlateauDeReversi {
 	 * @param y : int (ordonnée case de référence)
 	 * @return La liste des coordonnées des pions gagnés
 	 */
-	private ArrayList<Coordonnees> checkDown(Pion p, int x, int y) {
-		ArrayList<Coordonnees> test = new ArrayList<Coordonnees>();
+	private List<Coordonnees> checkDown(Pion p, int x, int y) {
+		List<Coordonnees> test = new ArrayList<Coordonnees>();
 		Pion pion;
 		int coordY;
 		
@@ -318,8 +319,8 @@ public class PlateauDeReversi {
 	 * @param y : int (ordonnée case de référence)
 	 * @return La liste des coordonnées des pions gagnés
 	 */
-	private ArrayList<Coordonnees> checkRight(Pion p, int x, int y) {
-		ArrayList<Coordonnees> test = new ArrayList<Coordonnees>();
+	private List<Coordonnees> checkRight(Pion p, int x, int y) {
+		List<Coordonnees> test = new ArrayList<Coordonnees>();
 		Pion pion;
 		int coordX;
 		
@@ -345,8 +346,8 @@ public class PlateauDeReversi {
 	 * @param y : int (ordonnée case de référence)
 	 * @return La liste des coordonnées des pions gagnés
 	 */
-	private ArrayList<Coordonnees> checkLeft(Pion p, int x, int y) {
-		ArrayList<Coordonnees> test = new ArrayList<Coordonnees>();
+	private List<Coordonnees> checkLeft(Pion p, int x, int y) {
+		List<Coordonnees> test = new ArrayList<Coordonnees>();
 		Pion pion;
 		int coordX;
 		
@@ -372,8 +373,8 @@ public class PlateauDeReversi {
 	 * @param y : int (ordonnée case de référence)
 	 * @return La liste des coordonnées des pions gagnés
 	 */
-	private ArrayList<Coordonnees> checkUpLeft(Pion p, int x, int y) {
-		ArrayList<Coordonnees> test = new ArrayList<Coordonnees>();
+	private List<Coordonnees> checkUpLeft(Pion p, int x, int y) {
+		List<Coordonnees> test = new ArrayList<Coordonnees>();
 		Pion pion;
 		int coordY, coordX;
 		
@@ -400,8 +401,8 @@ public class PlateauDeReversi {
 	 * @param y : int (ordonnée case de référence)
 	 * @return La liste des coordonnées des pions gagnés
 	 */
-	private ArrayList<Coordonnees> checkUpRight(Pion p, int x, int y) {
-		ArrayList<Coordonnees> test = new ArrayList<Coordonnees>();
+	private List<Coordonnees> checkUpRight(Pion p, int x, int y) {
+		List<Coordonnees> test = new ArrayList<Coordonnees>();
 		Pion pion;
 		int coordY, coordX;
 		
@@ -428,8 +429,8 @@ public class PlateauDeReversi {
 	 * @param y : int (ordonnée case de référence)
 	 * @return La liste des coordonnées des pions gagnés
 	 */
-	private ArrayList<Coordonnees> checkDownRight(Pion p, int x, int y) {
-		ArrayList<Coordonnees> test = new ArrayList<Coordonnees>();
+	private List<Coordonnees> checkDownRight(Pion p, int x, int y) {
+		List<Coordonnees> test = new ArrayList<Coordonnees>();
 		Pion pion;
 		int coordY, coordX;
 		
@@ -456,8 +457,8 @@ public class PlateauDeReversi {
 	 * @param y : int (ordonnée case de référence)
 	 * @return La liste des coordonnées des pions gagnés
 	 */
-	private ArrayList<Coordonnees> checkDownLeft(Pion p, int x, int y) {
-		ArrayList<Coordonnees> test = new ArrayList<Coordonnees>();
+	private List<Coordonnees> checkDownLeft(Pion p, int x, int y) {
+		List<Coordonnees> test = new ArrayList<Coordonnees>();
 		Pion pion;
 		int coordY, coordX;
 		
