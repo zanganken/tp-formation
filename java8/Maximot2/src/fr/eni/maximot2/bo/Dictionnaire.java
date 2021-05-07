@@ -43,7 +43,7 @@ public class Dictionnaire {
 	 */
 	public static String getRandom() {
 		Random r = new Random();
-		return listeMots.get(r.nextInt(listeMots.size() + 1));
+		return listeMots.get(r.nextInt(listeMots.size()));
 	}
 	
 	/**
