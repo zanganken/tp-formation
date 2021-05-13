@@ -27,9 +27,17 @@ public abstract class Article {
 	public Integer getIdArticle() {
 		return idArticle;
 	}
+	
+	public void setIdArticle(Integer idArticle) {
+		this.idArticle = idArticle;
+	}
 
 	public String getReference() {
 		return reference;
+	}
+
+	public void setReference(String reference) {
+		this.reference = reference;
 	}
 
 	public String getMarque() {
@@ -38,6 +46,10 @@ public abstract class Article {
 
 	public String getDesignation() {
 		return designation;
+	}
+
+	public void setDesignation(String designation) {
+		this.designation = designation;
 	}
 
 	public float getPrixUnitaire() {
