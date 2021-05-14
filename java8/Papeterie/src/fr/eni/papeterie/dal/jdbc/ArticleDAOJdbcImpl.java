@@ -13,6 +13,7 @@ import java.util.List;
 import fr.eni.papeterie.bo.Article;
 import fr.eni.papeterie.bo.Ramette;
 import fr.eni.papeterie.bo.Stylo;
+import fr.eni.papeterie.dal.Settings;
 
 /**
  * Implémentation de l'interface Closeable juste pour être stylé de ouf :^)
