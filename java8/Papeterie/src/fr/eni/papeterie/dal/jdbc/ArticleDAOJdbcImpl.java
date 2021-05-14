@@ -35,12 +35,12 @@ public class ArticleDAOJdbcImpl implements Closeable {
 			DriverManager.registerDriver(new Driver());
 			
 			// URL de connexion à MYSQL
-			String urlConnection = "jdbc:mysql://127.0.0.1:3306/papeterie_db";
+			String urlConnection = Settings.getProperties("url");
 			
 			this.connection = DriverManager.getConnection(
 					urlConnection,
-					DBUser.name, // String username à remplacer par l'identifiant de la base de données
-					DBUser.password); // String password à remplacer par le mot de passe de l'utilisateur
+					Settings.getProperties("user"),
+					Settings.getProperties("password"));
 		} catch (Exception e) {
 			System.err.println(e);
 		}
