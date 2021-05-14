@@ -35,12 +35,12 @@ public class ArticleDAOJdbcImpl implements Closeable {
 			DriverManager.registerDriver(new Driver());
 			
 			// URL de connexion à MYSQL
-			String urlConnection = Settings.getProperties("url");
+			String urlConnection = Settings.getProperty("url");
 			
 			this.connection = DriverManager.getConnection(
 					urlConnection,
-					Settings.getProperties("user"),
-					Settings.getProperties("password"));
+					Settings.getProperty("user"),
+					Settings.getProperty("password"));
 		} catch (Exception e) {
 			System.err.println(e);
 		}
