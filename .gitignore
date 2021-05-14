@@ -1,1 +1,5 @@
 settings.properties
+lib/
+bin/
+.classpath
+.project

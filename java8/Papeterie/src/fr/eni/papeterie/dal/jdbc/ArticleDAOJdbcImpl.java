@@ -1,6 +1,3 @@
-/**
- * 
- */
 package fr.eni.papeterie.dal.jdbc;
 
 import java.io.Closeable;
@@ -13,12 +10,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mysql.cj.jdbc.Driver;
-
 import fr.eni.papeterie.bo.Article;
 import fr.eni.papeterie.bo.Ramette;
 import fr.eni.papeterie.bo.Stylo;
-
 
 /**
  * Implémentation de l'interface Closeable juste pour être stylé de ouf :^)
@@ -32,7 +26,12 @@ public class ArticleDAOJdbcImpl implements Closeable {
 	 */
 	public ArticleDAOJdbcImpl() {
 		try {
-			DriverManager.registerDriver(new Driver());
+			try {
+				// Chargement du driver
+				Class.forName(Settings.getProperty("jdbcdriver"));
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
 			
 			// URL de connexion à MYSQL
 			String urlConnection = Settings.getProperty("url");
@@ -41,8 +40,8 @@ public class ArticleDAOJdbcImpl implements Closeable {
 					urlConnection,
 					Settings.getProperty("user"),
 					Settings.getProperty("password"));
-		} catch (Exception e) {
-			System.err.println(e);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 	
