@@ -15,7 +15,6 @@ import fr.eni.papeterie.dal.ArticleDAO;
 import fr.eni.papeterie.dal.DALException;
 
 /**
- * Implémentation de l'interface Closeable juste pour être stylé de ouf :^)
  * @author Zanganken
  */
 public class ArticleDAOJdbcImpl implements ArticleDAO {
