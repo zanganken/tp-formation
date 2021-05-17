@@ -44,7 +44,7 @@ public class AppliTestDAL {
 			((Stylo) a1).setDesignation("Bic bille noir");
 			((Stylo) a1).setReference("BBNoir");
 			articleDAO.update(a1);
-			System.out.println("Article après modification  : " + a1.toString() );
+			System.out.println("Article après modification  : " + articleDAO.selectById(a1.getIdArticle()));
 			
 			
 			//Suppression d'un article
