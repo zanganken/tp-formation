@@ -5,6 +5,7 @@ import java.util.List;
 import fr.eni.papeterie.bll.BLLException;
 import fr.eni.papeterie.bll.CatalogueManager;
 import fr.eni.papeterie.bo.Article;
+import fr.eni.papeterie.ihm.ecrArticle.EcranArticle;
 
 public class ArticleController {
 	private static ArticleController instance;

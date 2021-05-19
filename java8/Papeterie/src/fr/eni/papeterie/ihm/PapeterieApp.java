@@ -11,6 +11,13 @@ public class PapeterieApp {
 				ArticleController.getInstance().startApp();
 			}
 		});
+		
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				CatalogueController.getInstance().startApp();
+			}
+		});
 	}
 
 }

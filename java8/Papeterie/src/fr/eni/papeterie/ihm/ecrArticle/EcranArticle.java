@@ -1,4 +1,4 @@
-package fr.eni.papeterie.ihm;
+package fr.eni.papeterie.ihm.ecrArticle;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 import fr.eni.papeterie.bo.Article;
 import fr.eni.papeterie.bo.Ramette;
 import fr.eni.papeterie.bo.Stylo;
+import fr.eni.papeterie.ihm.ArticleController;
 
 public class EcranArticle extends JFrame {
 	private static final long serialVersionUID = -5999130905071642295L;
