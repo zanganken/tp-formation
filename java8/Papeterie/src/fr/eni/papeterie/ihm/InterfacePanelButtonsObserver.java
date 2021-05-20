@@ -1,7 +1,7 @@
 package fr.eni.papeterie.ihm;
 
 public interface InterfacePanelButtonsObserver {
-	void precendent();
+	void precedent();
 	void nouveau();
 	void enregistrer();
 	void supprimer();

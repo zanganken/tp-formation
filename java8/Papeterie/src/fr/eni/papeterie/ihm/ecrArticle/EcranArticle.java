@@ -286,7 +286,7 @@ public class EcranArticle extends JFrame {
 				}
 				
 				@Override
-				public void precendent() {
+				public void precedent() {
 					ArticleController.getInstance().precedent();
 				}
 				

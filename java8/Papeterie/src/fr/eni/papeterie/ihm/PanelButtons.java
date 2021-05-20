@@ -40,7 +40,7 @@ public class PanelButtons extends JPanel {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					if(observer != null) {
-						observer.precendent();
+						observer.precedent();
 					}
 				}
 			});
