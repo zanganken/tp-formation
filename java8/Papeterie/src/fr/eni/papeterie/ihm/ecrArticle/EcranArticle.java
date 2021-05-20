@@ -4,14 +4,9 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,6 +18,8 @@ import fr.eni.papeterie.bo.Article;
 import fr.eni.papeterie.bo.Ramette;
 import fr.eni.papeterie.bo.Stylo;
 import fr.eni.papeterie.ihm.ArticleController;
+import fr.eni.papeterie.ihm.InterfacePanelButtonsObserver;
+import fr.eni.papeterie.ihm.PanelButtons;
 
 public class EcranArticle extends JFrame {
 	private static final long serialVersionUID = -5999130905071642295L;
@@ -32,8 +29,8 @@ public class EcranArticle extends JFrame {
 		lblType, lblGrammage, lblCouleur;
 	private JRadioButton radioRamette, radioStylo, radio80g, radio100g;
 	private JComboBox<String> listCouleurs;
-	private JButton btnPrev, btnNew, btnSave, btnDel, btnNext;
-	private JPanel btnsPanel, radioTypePanel, radioGrammagePanel;
+	private JPanel radioTypePanel, radioGrammagePanel;
+	private PanelButtons btnsPanel;
 	
 	private Integer currentId;
 	private static final String titre = "Papeterie - ";
@@ -274,97 +271,35 @@ public class EcranArticle extends JFrame {
 		return listCouleurs;
 	}
 
-	public JButton getBtnPrev() {
-		if (btnPrev == null) {
-			Icon icon = new ImageIcon("./ressources/Back24.gif");
-			
-			btnPrev = new JButton(icon);
-			btnPrev.addActionListener(new ActionListener() {
+	public PanelButtons getBtnsPanel() {
+		if (btnsPanel == null) {
+			btnsPanel = new PanelButtons();
+			btnsPanel.addObserver(new InterfacePanelButtonsObserver() {
 				@Override
-				public void actionPerformed(ActionEvent e) {
+				public void supprimer() {
+					ArticleController.getInstance().supprimer();
+				}
+				
+				@Override
+				public void suivant() {
+					ArticleController.getInstance().suivant();
+				}
+				
+				@Override
+				public void precendent() {
 					ArticleController.getInstance().precedent();
 				}
-			});
-		}
-
-		return btnPrev;
-	}
-
-	public JButton getBtnNew() {
-		if (btnNew == null) {
-			Icon icon = new ImageIcon("./ressources/New24.gif");
-			
-			btnNew = new JButton(icon);
-			btnNew.addActionListener(new ActionListener() {
+				
 				@Override
-				public void actionPerformed(ActionEvent e) {
+				public void nouveau() {
 					ArticleController.getInstance().nouveau();
 				}
-			});
-		}
-
-		return btnNew;
-	}
-
-	public JButton getBtnSave() {
-		if (btnSave == null) {
-			Icon icon = new ImageIcon("./ressources/Save24.gif");
-			
-			btnSave = new JButton(icon);
-			btnSave.addActionListener(new ActionListener() {
+				
 				@Override
-				public void actionPerformed(ActionEvent e) {
+				public void enregistrer() {
 					ArticleController.getInstance().enregistrer();
 				}
 			});
-		}
-
-		return btnSave;
-	}
-
-	public JButton getBtnDel() {
-		if (btnDel == null) {
-			Icon icon = new ImageIcon("./ressources/Delete24.gif");
-			
-			btnDel = new JButton(icon);
-			btnDel.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					ArticleController.getInstance().supprimer();
-				}
-			});
-		}
-
-		return btnDel;
-	}
-
-	public JButton getBtnNext() {
-		if (btnNext == null) {
-			Icon icon = new ImageIcon("./ressources/Forward24.gif");
-			
-			btnNext = new JButton(icon);
-			btnNext.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					ArticleController.getInstance().suivant();
-				}
-			});
-		}
-
-		return btnNext;
-	}
-
-	public JPanel getBtnsPanel() {
-		if (btnsPanel == null) {
-			btnsPanel = new JPanel();
-			
-
-			btnsPanel.add(getBtnPrev());
-			btnsPanel.add(getBtnNew());
-			btnsPanel.add(getBtnSave());
-			btnsPanel.add(getBtnDel());
-			btnsPanel.add(getBtnNext());
-			
 		}
 
 		return btnsPanel;
