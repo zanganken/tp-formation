@@ -58,4 +58,16 @@ public class TableCatalogueModel extends AbstractTableModel {
 			return null;
 		}
 	}
+	
+	public void ajouter(Article a) {
+		articles.add(a);
+	}
+
+	public void modifier(int indexCatalogue, Article a) {
+		articles.set(indexCatalogue, a);
+	}
+
+	public void supprimer(int indexCatalogue) {
+		articles.remove(indexCatalogue);
+	}
 }

@@ -13,11 +13,13 @@ public class ArticleController {
 	private EcranArticle ecrArticle;
 	private CatalogueManager mger;
 	private List<Article> catalogue;
+	private CatalogueController catalogueCtrl;
 	
 	private int indexCatalogue;
 	
 	private ArticleController() {
 		mger = CatalogueManager.getInstance();
+		catalogueCtrl = CatalogueController.getInstance();
 		
 		try {
 			catalogue = mger.getCatalogue();
@@ -86,6 +88,7 @@ public class ArticleController {
 			try {
 				mger.removeArticle(catalogue.get(indexCatalogue));
 				catalogue.remove(indexCatalogue);
+				catalogueCtrl.supprimer(indexCatalogue);
 			} catch (BLLException e) {
 				e.printStackTrace();
 			}
@@ -109,11 +112,13 @@ public class ArticleController {
 			if(a.getIdArticle() == null) {
 				mger.addArticle(a);
 				catalogue.add(a);
+				catalogueCtrl.ajouter(a);
 				
 				ecrArticle.afficherArticle(a);
 			} else {
 				mger.updateArticle(a);
 				catalogue.set(indexCatalogue, a);
+				catalogueCtrl.modifier(indexCatalogue, a);
 			}
 		} catch (BLLException e) {
 			e.printStackTrace();
