@@ -64,9 +64,16 @@ public class AppliTestDAL {
 				sb.append(art.getReference()).append("]\n");
 			}
 			System.out.println(sb.toString());
-			System.out.println("---------------------------------------------------------------");
-
 			
+			//Sélection de tous les articles de la marque BIC
+			List<Article> articles2 = articleDAO.selectByMarque("BIC");
+			System.out.println("Sélection de tous les articles de la marque BIC  : " + articles2.toString() );
+			
+			//Sélection de tous les articles contenant Stylo dans leur désignation
+			List<Article> articles3 = articleDAO.selectByMotCle("Stylo");
+			System.out.println("Sélection de tous les articles contenant \"Stylo\" dans leur désignation  : " + articles3.toString() );
+			
+			System.out.println("---------------------------------------------------------------");
 		} catch (DALException e) {
 			e.printStackTrace();
 		}

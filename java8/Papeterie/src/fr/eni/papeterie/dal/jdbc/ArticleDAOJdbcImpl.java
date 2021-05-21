@@ -27,6 +27,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	 * @param a : Article
 	 * @throws DALException 
 	 */
+	@Override
 	public void insert(Article a) throws DALException {
 		try {
 			this.con = JdbcTools.getConnection();
@@ -60,7 +61,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 				this.rs = rqt.getGeneratedKeys();
 				
 				// Si le résultat existe et qu'il n'est pas null
-				if(rs.next() && !rs.wasNull()) {
+				if(rs.next()) {
 					a.setIdArticle(rs.getInt(1));
 				}
 			}
@@ -76,6 +77,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	 * @return L'article ayant pour id "idArticle"
 	 * @throws DALException 
 	 */
+	@Override
 	public Article selectById(Integer idArticle) throws DALException {
 		// On initialise l'article à retourner (la valeur reste null si aucun résultat n'est trouvé)
 		Article articleARetourner = null;
@@ -88,9 +90,9 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 			
 			this.rs = rqt.executeQuery();
 			
-			if(rs.next() && !rs.wasNull()) {
+			if(rs.next()) {
 				// On génère l'article à partir du résultat
-				articleARetourner = ArticleDAOJdbcImpl.generateArticle(rs);
+				articleARetourner = ArticleDAOJdbcImpl.generateArticleFromRS(rs);
 			}
 		} catch (SQLException e) {
 			throw new DALException("Échec de la méthode selectById - idArticle = "+ idArticle, e);
@@ -100,7 +102,8 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 		
 		return articleARetourner;
 	}
-	
+
+	@Override
 	public List<Article> selectAll() throws DALException {
 		List<Article> articles = new ArrayList<Article>();
 		
@@ -111,9 +114,9 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 			
 			this.rs = rqt.executeQuery();
 			
-			while(rs.next() && !rs.wasNull()) {
+			while(rs.next()) {
 				// On génère l'article à partir du résultat que l'on ajoute à la liste
-				articles.add(ArticleDAOJdbcImpl.generateArticle(rs));
+				articles.add(ArticleDAOJdbcImpl.generateArticleFromRS(rs));
 			}
 		} catch (SQLException e) {
 			throw new DALException("Échec de la méthode selectAll", e);
@@ -123,7 +126,8 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 		
 		return articles;
 	}
-	
+
+	@Override
 	public void update(Article a) throws DALException {
 		try {
 			this.con = JdbcTools.getConnection();
@@ -164,6 +168,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	 * @param idArticle : Integer (id de l'article à supprimer de la table)
 	 * @throws DALException 
 	 */
+	@Override
 	public void delete(Integer idArticle) throws DALException {
 		try {
 			this.con = JdbcTools.getConnection();
@@ -178,11 +183,60 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 			this.close();
 		}
 	}
+
+	@Override
+	public List<Article> selectByMarque(String marque) throws DALException {
+		List<Article> articles = new ArrayList<Article>();
+		
+		try {
+			this.con = JdbcTools.getConnection();
+			
+			this.rqt = con.prepareStatement("SELECT * FROM articles WHERE marque=?");
+			rqt.setString(1, marque);
+			
+			this.rs = rqt.executeQuery();
+			
+			while(rs.next()) {
+				articles.add(ArticleDAOJdbcImpl.generateArticleFromRS(rs));
+			}
+		} catch (SQLException e) {
+			throw new DALException("Échec de la méthode selectByMarque("+ marque +") - ", e);
+		} finally {
+			this.close();
+		}
+		
+		return articles;
+	}
+
+	@Override
+	public List<Article> selectByMotCle(String keyword) throws DALException {
+		List<Article> articles = new ArrayList<Article>();
+		
+		try {
+			this.con = JdbcTools.getConnection();
+			
+			this.rqt = con.prepareStatement("SELECT * FROM articles WHERE designation LIKE ?");
+			rqt.setString(1, "%"+keyword+"%");
+			
+			this.rs = rqt.executeQuery();
+			
+			while(rs.next()) {
+				articles.add(ArticleDAOJdbcImpl.generateArticleFromRS(rs));
+			}
+		} catch (SQLException e) {
+			throw new DALException("Échec de la méthode selectByMotCle("+ keyword +") - ", e);
+		} finally {
+			this.close();
+		}
+		
+		return articles;
+	}
 	
 	/**
 	 * Fermeture des connexions, requêtes et résultats si différents de null
 	 * @throws DALException 
 	 */
+	@Override
 	public void close() throws DALException {
 		try {
 			if(con != null) {
@@ -202,7 +256,7 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 		}
 	}
 	
-	public static Article generateArticle(ResultSet rs) throws SQLException {
+	public static Article generateArticleFromRS(ResultSet rs) throws SQLException {
 		Article articleARetourner;
 		
 		int id = rs.getInt("idArticle");
