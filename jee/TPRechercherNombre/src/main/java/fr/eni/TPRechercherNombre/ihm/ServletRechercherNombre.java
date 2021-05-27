@@ -12,13 +12,12 @@ public class ServletRechercherNombre extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private int nombreAleatoire;
 	
-	public ServletRechercherNombre() {
-		super();
-		
+	@Override
+	public void init() throws ServletException {
 		Random r = new Random();
 		this.nombreAleatoire = r.nextInt(10 + 1);
 		
-		System.out.println(this.nombreAleatoire);
+		super.init();
 	}
 
 	/**
