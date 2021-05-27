@@ -1,5 +1,7 @@
 settings.properties
 lib/
 bin/
+.settings/
+build/
 .classpath
 .project
