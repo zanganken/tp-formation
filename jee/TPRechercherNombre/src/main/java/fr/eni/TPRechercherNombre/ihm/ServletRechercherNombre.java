@@ -11,11 +11,18 @@ import javax.servlet.http.HttpServletResponse;
 public class ServletRechercherNombre extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private int nombreAleatoire;
+	private int min;
+	private int max;
 	
 	@Override
 	public void init() throws ServletException {
+		this.min = Integer.parseInt(this.getInitParameter("min"));
+		this.max = Integer.parseInt(this.getInitParameter("max"));
+		
 		Random r = new Random();
-		this.nombreAleatoire = r.nextInt(10 + 1);
+		this.nombreAleatoire = r.nextInt(max - min + 1) + min;
+		
+		System.out.println("Nombre généré: " + nombreAleatoire);
 		
 		super.init();
 	}

@@ -7,6 +7,16 @@
   <servlet>
   	<servlet-name>ServletRechercherNombre</servlet-name>
   	<servlet-class>fr.eni.TPRechercherNombre.ihm.ServletRechercherNombre</servlet-class>
+  	<init-param>
+  		<description>Valeur minimum</description>
+  		<param-name>min</param-name>
+  		<param-value>6</param-value>
+  	</init-param>
+  	<init-param>
+  		<description>Valeur maximum</description>
+  		<param-name>max</param-name>
+  		<param-value>12</param-value>
+  	</init-param>
   </servlet>
   
   <servlet-mapping>
