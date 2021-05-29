@@ -45,6 +45,10 @@ public class ServletAjoutRepas extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/view" + (idRepas != null ? "?id="+idRepas+"#"+idRepas : ""));
 		} catch (DALException | BLLException e) {
 			request.setAttribute("error", e.getMessage());
+
+			request.setAttribute("date", params.get("date")[0]);
+			request.setAttribute("heure", params.get("heure")[0]);
+			request.setAttribute("repas", params.get("repas")[0]);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/pages/add.jsp");
 			rd.forward(request, response);
