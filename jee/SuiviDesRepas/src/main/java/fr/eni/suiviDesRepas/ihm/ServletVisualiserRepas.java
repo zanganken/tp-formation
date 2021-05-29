@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.suiviDesRepas.bll.RepasManager;
+import fr.eni.suiviDesRepas.dal.DALException;
 
 /**
  * Servlet implementation class ServletVisualiserRepas
@@ -24,10 +25,13 @@ public class ServletVisualiserRepas extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RepasManager rMgr = new RepasManager();
 		
-		request.setAttribute("repasMap", rMgr.getAllRepas());
+		try {
+			request.setAttribute("repasMap", rMgr.getAllRepas());
+		} catch (DALException e) {
+			request.setAttribute("error", e.getMessage());
+		}
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/pages/view.jsp");
 		rd.forward(request, response);
 	}
-
 }

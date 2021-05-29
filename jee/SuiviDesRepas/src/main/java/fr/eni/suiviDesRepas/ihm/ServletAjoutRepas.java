@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.suiviDesRepas.bll.BLLException;
 import fr.eni.suiviDesRepas.bll.RepasManager;
+import fr.eni.suiviDesRepas.dal.DALException;
 
 /**
  * Servlet implementation class ServletAjoutRepas
@@ -36,10 +38,17 @@ public class ServletAjoutRepas extends HttpServlet {
 		Map<String, String[]> params = request.getParameterMap();
 		
 		RepasManager rMgr = new RepasManager();
-		rMgr.add(params);
+		Integer idRepas;
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/pages/add.jsp");
-		rd.forward(request, response);
+		try {
+			idRepas = rMgr.add(params);
+			response.sendRedirect(request.getContextPath() + "/view" + (idRepas != null ? "?id="+idRepas+"#"+idRepas : ""));
+		} catch (DALException | BLLException e) {
+			request.setAttribute("error", e.getMessage());
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/pages/add.jsp");
+			rd.forward(request, response);
+		}
 	}
 
 }

@@ -21,8 +21,8 @@ public class RepasManager {
 		repasDAO = DAOFactory.getRepasDAO();
 	}
 	
-	public Repas add(Map<String, String[]> params) {
-		Repas repas = null;
+	public Integer add(Map<String, String[]> params) throws DALException, BLLException {
+		Integer idRepas = null;
 		
 		if(params.containsKey("date") && params.containsKey("heure") && params.containsKey("repas")) {
 			String dateStr = params.get("date")[0];
@@ -32,6 +32,10 @@ public class RepasManager {
 			try {
 				LocalDateTime dateTime = LocalDateTime.of(LocalDate.parse(dateStr), LocalTime.parse(heureStr));
 				
+				if(repasStr.trim().length() == 0) {
+					throw new BLLException("Il est nécessaire d'indiquer ce que vous avez mangé -");
+				}
+				
 				List<String> aliments = new ArrayList<String>();
 				String[] alimentsArr = repasStr.split(",");
 				
@@ -39,25 +43,21 @@ public class RepasManager {
 					aliments.add(aliment.trim());
 				}
 				
-				repas = new Repas(dateTime, aliments);
+				Repas r = new Repas(dateTime, aliments);
 				
-				repasDAO.insert(repas);
-			} catch(DateTimeParseException | DALException e) {
-				e.printStackTrace();
+				idRepas = repasDAO.insert(r);
+			} catch(DateTimeParseException e) {
+				throw new BLLException("La date ou l'heure renseignée n'est pas valide -", e);
 			}
 		}
 		
-		return repas;
+		return idRepas;
 	}
 
-	public Map<Integer, Repas> getAllRepas() {
+	public Map<Integer, Repas> getAllRepas() throws DALException {
 		Map<Integer, Repas> repas = new Hashtable<Integer, Repas>();
 		
-		try {
-			repas = repasDAO.selectAll();
-		} catch (DALException e) {
-			e.printStackTrace();
-		}
+		repas = repasDAO.selectAll();
 		
 		return repas;
 	}

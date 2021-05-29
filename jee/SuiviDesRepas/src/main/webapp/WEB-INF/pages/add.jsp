@@ -13,7 +13,15 @@
 	<body>
 		<main class="container">
 			<h1 class="text-center">AJOUT</h1>
-			
+			<%
+				if(request.getAttribute("error") != null) {
+			%>
+			<div class="alert alert-danger" role="alert">
+				<%= request.getAttribute("error") %>
+			</div>
+			<%
+				}
+			%>
 			<form action="<%= request.getContextPath() %>/add" method="POST">
 				<div class="mb-3">
 					<label for="inputDate" class="form-label">Date</label>

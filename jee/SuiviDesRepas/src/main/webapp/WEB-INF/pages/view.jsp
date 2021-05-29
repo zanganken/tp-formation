@@ -16,6 +16,7 @@
 	</head>
 	<body>
 		<main class="container-fluid">
+		<% if(request.getAttribute("repasMap") != null) { %>
 			<table class="table">
 				<thead>
 					<tr>
@@ -24,14 +25,22 @@
 						<th>Aliments</th>
 					</tr>
 				</thead>
-				<tbody>
-				<%
+				<tbody><%
 					@SuppressWarnings("unchecked")
 					Map<Integer, Repas> repasMap = (Map<Integer, Repas>) request.getAttribute("repasMap");
 				
-					for(Repas r : repasMap.values()) {
+					Integer highlight = null;
+					
+					try {
+						highlight = Integer.parseInt(request.getParameter("id"));
+					} catch(NumberFormatException e) { }
+				
+					//for(Repas r : repasMap.values()) {
+					for(Map.Entry<Integer, Repas> entry : repasMap.entrySet()) {
+						Integer id = entry.getKey();
+						Repas r = entry.getValue();
 				%>
-					<tr>
+					<tr id="<%= id %>"<%= id == highlight ? " class=\"table-success\"" : "" %>>
 						<td><%= r.getDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) %></td>
 						<td><%= r.getDateTime().format(DateTimeFormatter.ofPattern("HH:mm:ss")) %></td>
 						<td><%= r.getAliments() %></td>
@@ -41,7 +50,11 @@
 				%>
 				</tbody>
 			</table>
-			
+		<% } else if(request.getAttribute("error") != null) { %>
+			<div class="alert alert-danger mt-3" role="alert">
+				<%= request.getAttribute("error") %>
+			</div>
+		<% } %>
 			<nav>
 				<div class="container">
 					<div class="row">
