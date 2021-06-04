@@ -28,18 +28,18 @@ public class ServletResultat extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String[] choix = {"Pierre", "Feuille", "Ciseaux"};
+		String[] choix = {"rock", "paper", "scissors"};
 		
 		int cu = Integer.parseInt(request.getParameter("choix"));
 		int cs = new Random().nextInt(3); // renvoit un chiffre entre 0 et 2
 		String winStr;
 		
 		if(cu == cs) {
-			winStr = "Egalité.";
+			winStr = "draw";
 		} else if((cu + 1) == cs || (cu == (choix.length - 1) && cs == 0)) {
-			winStr = "Le serveur remporte la manche.";
+			winStr = "server_wins";
 		} else {
-			winStr = "Vous remportez la manche !";
+			winStr = "you_win";
 		}
 		
 		request.setAttribute("choixUtilisateur", choix[cu]);
