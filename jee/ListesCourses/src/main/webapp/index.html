@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html class="h-100">
+	<head>
+		<meta charset="UTF-8">
+		<title>Listes de courses prédéfinies</title>
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+	</head>
+	<body class="h-100 d-flex flex-column">
+		<header class="navbar navbar-dark bg-dark sticky-top">
+			<div class="container">
+				<a href="./" class="navbar-brand">Courses</a>
+				<span class="navbar-text">Listes prédéfinies</span>
+			</div>
+		</header>
+		
+		<main class="container py-3">
+			<ul class="list-group list-group-flush"></ul>
+		</main>
+		
+		<footer class="navbar mt-auto border-top border-dark p-3">
+			<div class="container justify-content-center">
+				<a href="./edit.html" class="btn btn-dark btn-lg rounded-circle">+</a>
+			</div>
+		</footer>
+		
+		<div class="modal fade" id="delete" tabindex="-1">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Supprimer la liste</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<p>Êtes-vous sûr de vouloir supprimer la liste ?</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Annuler</button>
+						<button id="deleteBtn" type="button" class="btn btn-danger">Supprimer</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+		<script src="./assets/js/index.js"></script>
+	</body>
+</html>
