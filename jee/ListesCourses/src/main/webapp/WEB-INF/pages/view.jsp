@@ -24,7 +24,7 @@
 		
 		<main class="container py-3">
 		<c:if test="${not empty param.id}">
-			<h3 class="mb-0"></h3>
+			<h3></h3>
 			
 			<ul data-id="${param.id}" class="list-group list-group-flush mb-3"></ul>
 		</c:if>

@@ -36,6 +36,8 @@ $(function() {
 		
 		$.get(`./api/listesCourses/${$ul.attr("data-id")}`).done(data => {
 			if(data) {
+				$("h3").text(data.nom)
+				
 				for(let article of data.articles) {
 					generateArticle(id, article)
 					id++;

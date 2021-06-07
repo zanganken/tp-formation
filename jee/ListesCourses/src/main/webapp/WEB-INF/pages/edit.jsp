@@ -2,10 +2,7 @@
 	language="java"
 	contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-%><%@ taglib
-	prefix="c"
-	uri="http://java.sun.com/jsp/jstl/core"
- %><!DOCTYPE html>
+%><!DOCTYPE html>
 <html class="h-100">
 	<head>
 		<meta charset="UTF-8">
@@ -18,7 +15,7 @@
 		<header class="navbar navbar-dark bg-dark sticky-top">
 			<div class="container">
 				<a href="./" class="navbar-brand">Courses</a>
-				<span class="navbar-text">Listes prédéfinies</span>
+				<span class="navbar-text">${not empty param.id ? 'Éditer la liste' : 'Créer une nouvelle liste'}</span>
 			</div>
 		</header>
 		
